@@ -13,15 +13,16 @@ def read_olympics_data():
 
 
 def plot_data(X, t, Xnew, tnew):
-    plt.plot(X, t, label='Original')
+    plt.scatter(X, t, label='Original')
     plt.plot(Xnew, tnew, label='predicted')
     plt.title('Linear fitting')
     plt.legend()
     plt.show()
 
 
-def evaluate_model_parameters(X, t):
-    w = np.linalg.inv(X.T @ X) @ X.T @ t
+def evaluate_model_parameters(X, t, lambda_hyperparam=0.0):
+    N = t.shape[0]
+    w = np.linalg.inv(X.T @ X + N * lambda_hyperparam * np.eye(2)) @ X.T @ t
     print(w)
     return w
 
